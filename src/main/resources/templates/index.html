@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TASK LIST</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div class="container"> <!--se realiza contenedor para objetos de lista-->
+
+            <h1 class="mt-4 mb-4">TASK LIST</h1> <!--Titulo de lista -->
+
+            <ul class="list-group"><!--Realizo una lista de elementos -->
+                <li th:each="task, index : ${tasks}" class="list-group-item"><!-- hacer lista iterando con index apara cada objeto de lista -->
+                    <span th:text="${task.description}"></span> <!--iteracion n debe tener como texto la descripción de tarea -->
+                    <form method="post" action="/deleteTask" class="float-right"><!--bueque metodo post(HTTP) para modificar server con accion delete, y este formulario estará a la derecha -->
+                        <input type="hidden" name="index" th:value="${index.index}"/><!-- De forma oculta halle index de html index -->
+                        <button type="submit" class="btn btn-danger"> Delete </button><!-- el formulario en forma de boton rojo -->
+                    </form>
+                </li>
+            </ul>
+
+            <form method="post" action="/addTask" class="mt-4">
+                <div class="form-group"><!--Aplica estilo -->
+                    <label for="description">New Task</label><!--Etiqueta a campo de entrada -->
+                    <input type="text" id="description" name="description" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Add </button>
+            </form>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </body>
+</html>
